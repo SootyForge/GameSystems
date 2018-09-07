@@ -12,7 +12,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public bool rotateToMainCamera = false;
-    public Transform weapon;
+    public bool rotateWeapon = false;
+    public Weapon currentWeapon;
 
     public float moveSpeed = 5f;
     public float jumpHeight = 10f;
@@ -46,6 +47,13 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // If fire button is pressed AND weapon is allowed to fire
+        if (Input.GetButton("Fire1"))
+        {
+            // Fire the weapon
+            currentWeapon.Attack();
+        }
+
         float inputH = Input.GetAxis("Horizontal") * moveSpeed;
         float inputV = Input.GetAxis("Vertical") * moveSpeed;
 
@@ -80,8 +88,12 @@ public class PlayerController : MonoBehaviour
         // TESTING!
 
         Quaternion playerRotation = Quaternion.AngleAxis(camEuler.y, Vector3.up);
-        Quaternion weaponRotation = Quaternion.AngleAxis(camEuler.x, Vector3.right);
-        weapon.localRotation = weaponRotation;
         transform.rotation = playerRotation;
+
+        if (rotateWeapon)
+        {
+            Quaternion weaponRotation = Quaternion.AngleAxis(camEuler.x, Vector3.right);
+            currentWeapon.transform.localRotation = weaponRotation;
+        }
     }
 }
