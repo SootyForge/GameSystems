@@ -215,5 +215,5 @@ MonoBehaviour:
   accuracy: 1
   range: 10
   rateOfFire: 5
-  projectile: {fileID: 0}
-  spawnPoint: {fileID: 0}
+  projectile: {fileID: 1266219417864134, guid: 8939d39a8e3ccd243bc79899a5fcf61a, type: 2}
+  spawnPoint: {fileID: 4322953549212048}

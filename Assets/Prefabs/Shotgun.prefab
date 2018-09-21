@@ -216,5 +216,5 @@ MonoBehaviour:
   range: 10
   rateOfFire: 5
   projectile: {fileID: 0}
-  spawnPoint: {fileID: 0}
+  spawnPoint: {fileID: 4605397249932456}
   pellets: 6
