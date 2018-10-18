@@ -7,15 +7,18 @@ namespace FlappyBird
     public class Repeat : MonoBehaviour
     {
         public float moveSpeed = 1f;
+        public bool isRepeating = true;
         public SpriteRenderer rend;
         private float width;
 
         // Use this for initialization
         void Start()
         {
-            // Get with from collider and scale by transform
-            width = rend.bounds.size.x;
-
+            if (rend)
+            {
+                // Get with from collider and scale by transform
+                width = rend.bounds.size.x;
+            }
         }
 
         // Update is called once per frame
@@ -26,7 +29,7 @@ namespace FlappyBird
             // Move position
             pos += Vector3.left * moveSpeed * Time.deltaTime;
             // IF on leaving left side if screen
-            if (pos.x < -width)
+            if (pos.x < -width && isRepeating)
             {
                 // Repeat = Move to opposite side of screen
                 float offset = width * 2;
