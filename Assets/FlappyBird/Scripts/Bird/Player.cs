@@ -27,12 +27,22 @@ namespace FlappyBird
             // Is the bird not dead?
             if (!isDead)
             {
+                rigid.rotation = rigid.velocity.y;
                 // Cancel velocity
                 rigid.velocity = Vector2.zero;
                 // Give the bird an upward force using impulse
                 // new Vector2(0, upForce) == Vector2.up * upForce
                 rigid.AddForce(new Vector2(0, upForce), ForceMode2D.Impulse);
             }
+        }
+
+        private void OnTriggerEnter2D(Collider2D col)
+        {
+            GameManager.Instance.AddScore(1);
+        }
+        private void OnCollisionEnter2D(Collision2D col)
+        {
+            GameManager.Instance.GameOver();
         }
     } 
 }

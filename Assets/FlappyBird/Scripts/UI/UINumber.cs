@@ -5,8 +5,9 @@ using UnityEngine.UI;
 
 namespace FlappyBird
 {
-    public class FlappyScore : MonoBehaviour
+    public class UINumber : MonoBehaviour
     {
+        public int number = 0;
         public Sprite[] numbers;            // Stores all the flappy digits
         public GameObject scoreTextPrefab;  // Score Prefab text element to create
         public Vector3 standbyPos = new Vector3(-15, 15); // Position offscreen for standby
@@ -15,20 +16,59 @@ namespace FlappyBird
         private GameObject[] scoreTextPool;
         private int[] digits;
 
+        public int Value
+        {
+            get
+            {
+                return number;
+            }
+            set
+            {
+                number = value;
+                RefreshText(value);
+            }
+        }
+
         // Use this for initialization
         void Start()
         {
             SpawnPool();
             // Subscribe to scoreAdded function in GameManager
-            GameManager.Instance.scoreAdded += RefreshScore;
+            GameManager.Instance.scoreAdded += RefreshText;
             // Update score to start on zero
-            RefreshScore(0);
+            RefreshText(0);
         }
-
+        
         // Update is called once per frame
         void Update()
         {
 
+        }
+
+        void RefreshText(int score)
+        {
+            // Convert score into array of digits
+            int[] digits = GetDigits(score);
+            // Loop through all digits
+            for (int i = 0; i < digits.Length; i++)
+            {
+                // Get value of each digit
+                int value = digits[i];
+                // Get corresponding text element in pool
+                GameObject textElement = scoreTextPool[i];
+                // Get image component attached to it
+                Image img = textElement.GetComponent<Image>();
+                // Assign sprite to number using value
+                img.sprite = numbers[value];
+                // Activate text element
+                textElement.SetActive(true);
+            }
+
+            // Loop through all remaining text elements in the pool
+            for (int i = digits.Length; i < scoreTextPool.Length; i++)
+            {
+                scoreTextPool[i].SetActive(false);
+            }
         }
 
         void SpawnPool()

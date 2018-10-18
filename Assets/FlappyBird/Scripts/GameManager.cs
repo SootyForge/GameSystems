@@ -23,23 +23,12 @@ namespace FlappyBird
         }
         #endregion
         public int score = 0;
+        public float timeScale = 1;
         public bool isGameOver = false;
 
         public delegate void IntCallback(int number);
         public IntCallback scoreAdded;
-
-        // Use this for initialization
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
+        
         public void AddScore(int scoreToAdd)
         {
             // Is the game over?
@@ -51,6 +40,12 @@ namespace FlappyBird
 
             // Call subscribers
             scoreAdded.Invoke(score);
+        }
+
+        public void GameOver()
+        {
+            timeScale = 0;
+            isGameOver = true;
         }
     } 
 }
